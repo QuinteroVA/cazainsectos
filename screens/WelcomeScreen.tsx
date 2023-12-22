@@ -5,6 +5,7 @@ import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import { getAuth, signOut } from "firebase/auth";
 
 export default function WelcomeScreen({ navigation }: any) {
+  
   function cerrarSesion() {
     Alert.alert('Advertencia', '¿Deseas cerrar la sesión?',
       [{ text: 'Cancelar', style: 'cancel' },
@@ -50,7 +51,6 @@ export default function WelcomeScreen({ navigation }: any) {
         </TouchableOpacity>
       </View>
     </ImageBackground>
-
   )
 }
 

@@ -14,7 +14,7 @@ export default function LoginScreen({ navigation }: any) {
     signInWithEmailAndPassword(auth, correo, contrasenia)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user.uid)
+        //console.log(user.uid)
         Alert.alert('Sesión', 'Acceso Correcto')
         navigation.navigate('Tab_Welcome')
         setCorreo('')

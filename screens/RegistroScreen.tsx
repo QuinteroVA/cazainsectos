@@ -12,6 +12,7 @@ export default function RegistroScreen({ navigation }: any) {
   const [contrasenia, setContrasenia] = useState('');
 
   function registro() {
+    
     createUserWithEmailAndPassword(auth, correo, contrasenia)
       .then((userCredential) => {
         const user = userCredential.user;
