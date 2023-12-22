@@ -7,9 +7,7 @@ import RegistroScreen from '../screens/RegistroScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import GameScreen from '../screens/GameScreen';
 import ScoreScreen from '../screens/ScoreScreen';
-
 const Stack = createStackNavigator();
-
 function MyStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -20,9 +18,7 @@ function MyStack() {
     </Stack.Navigator>
   );
 }
-
 const Tab = createBottomTabNavigator();
-
 function MyTab() {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false}}>
@@ -32,7 +28,6 @@ function MyTab() {
     </Tab.Navigator>
   );
 }
-
 export default function MainNavigator() {
   return (
     <NavigationContainer>

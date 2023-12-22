@@ -4,7 +4,7 @@
     "slug": "cazainsectos",
     "version": "1.0.0",
     "orientation": "all",
-    "icon": "./assets/images/splash.png",
+    "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/images/splash.png",
@@ -19,12 +19,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/splash.png",
+        "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets/images/splash.png"
+      "favicon": "./assets/images/favicon.png"
     }
   }
 }

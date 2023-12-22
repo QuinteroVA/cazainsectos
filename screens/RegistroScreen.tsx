@@ -1,42 +1,31 @@
-import { Alert, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
-import { TextInput } from 'react-native-gesture-handler'
+import { Alert, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { TextInput } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons';
-
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from '../config/Config'
-import { db } from '../config/Config';
+import { createUserWithEmailAndPassword, User } from "firebase/auth";
+import { auth, db } from '../config/Config';
 import { ref, set } from "firebase/database";
 
 export default function RegistroScreen({ navigation }: any) {
   const [usuario, setUsuario] = useState('');
-  const [correo, setCorreo] = useState('')
-  const [contrasenia, setContrasenia] = useState('')
-  //const [lista, setLista] = useState([])
-
-  function guardar(usuario: string, correo: string) {
-    set(ref(db, 'jugadores/' + usuario), {
-      nick: usuario,
-      email: correo,
-    });
-    setUsuario('')
-    setCorreo('')
-    setContrasenia('')
-  }
+  const [correo, setCorreo] = useState('');
+  const [contrasenia, setContrasenia] = useState('');
 
   function registro() {
     createUserWithEmailAndPassword(auth, correo, contrasenia)
       .then((userCredential) => {
-        
         const user = userCredential.user;
+        guardar(usuario, correo, user);
         Alert.alert('Registro Correcto')
         navigation.navigate('Login')
+        setUsuario('')
         setCorreo('')
         setContrasenia('')
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.log(errorCode)
         switch (errorCode) {
           case 'auth/invalid-email':
             Alert.alert('Error', 'El correo o la contraseña no son válidos');
@@ -44,12 +33,28 @@ export default function RegistroScreen({ navigation }: any) {
           case 'auth/missing-password':
             Alert.alert('Error', 'No se admite contraseña en blanco');
             break;
+          case 'auth/email-already-in-use':
+            Alert.alert('Error', 'Correo actualmente en uso');
+            break;
+          case 'auth/weak-password':
+            Alert.alert('Error', 'Contraseña muy corta');
+            break;
           default:
             Alert.alert('Error', 'Verificar credenciales');
             break;
         }
       }
       );
+  }
+
+  function guardar(usuario: string, correo: string, user: User) {
+    set(ref(db, 'jugadores/' + user?.uid), {
+      nick: usuario,
+      email: correo,
+    });
+    setUsuario('')
+    setCorreo('')
+    setContrasenia('')
   }
 
   return (
@@ -83,8 +88,8 @@ export default function RegistroScreen({ navigation }: any) {
         <Text style={styles.buttonText}>Registrar</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() =>  navigation.navigate('Inicio')}>
-          <AntDesign name="logout" size={24} style={styles.icon} />
-          <Text style={styles.buttonText}>Salir</Text>
+          <AntDesign name="back" size={24} style={styles.icon} />
+          <Text style={styles.buttonText}>Regresar</Text>
       </TouchableOpacity>
     </View>
     </ImageBackground>

@@ -1,9 +1,9 @@
 import { Alert, Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
-import { getAuth, signOut } from "firebase/auth";
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import React from 'react'
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { getAuth, signOut } from "firebase/auth";
+
 export default function WelcomeScreen({ navigation }: any) {
   function cerrarSesion() {
     Alert.alert('Advertencia', '¿Deseas cerrar la sesión?',

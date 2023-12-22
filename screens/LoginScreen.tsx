@@ -2,7 +2,7 @@ import { Alert, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from
 import React, { useState } from 'react'
 import { TextInput } from 'react-native-gesture-handler'
 import { AntDesign } from '@expo/vector-icons';
-//Firebase
+
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../config/Config';
 
@@ -13,10 +13,8 @@ export default function LoginScreen({ navigation }: any) {
   function login() {
     signInWithEmailAndPassword(auth, correo, contrasenia)
       .then((userCredential) => {
-        // Signed in 
         const user = userCredential.user;
-        //console.log(user)
-        //console.log('Acceso Correcto')
+        console.log(user.uid)
         Alert.alert('Sesión', 'Acceso Correcto')
         navigation.navigate('Tab_Welcome')
         setCorreo('')
@@ -25,6 +23,7 @@ export default function LoginScreen({ navigation }: any) {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.log(errorCode)
         switch (errorCode) {
           case 'auth/invalid-credential':
             Alert.alert('Error', 'El correo o la contraseña no son válidos');
@@ -71,8 +70,8 @@ export default function LoginScreen({ navigation }: any) {
         </View>
         <View>
           <TouchableOpacity style={styles.button} onPress={() =>  navigation.navigate('Inicio')}>
-          <AntDesign name='logout' size={24} style={styles.icon} />
-          <Text style={styles.buttonText}>Salir</Text>
+          <AntDesign name='back' size={24} style={styles.icon} />
+          <Text style={styles.buttonText}>Regresar</Text>
       </TouchableOpacity>
         </View>
       </View>

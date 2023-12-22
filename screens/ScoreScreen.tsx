@@ -2,8 +2,6 @@ import { ImageBackground, StyleSheet, Text, TouchableOpacity, View, FlatList } f
 import React, { useEffect, useState } from 'react';
 
 import { AntDesign } from '@expo/vector-icons';
-//Firebase
-//import { signInWithEmailAndPassword } from "firebase/auth";
 import { getDatabase, ref, orderByChild, limitToLast, get, query, DataSnapshot } from 'firebase/database';
 import { auth } from '../config/Config';
 
@@ -19,15 +17,12 @@ export default function ScoreScreen({ navigation }: any) {
                     const puntajesArray: [] = [];
                     snapshot.forEach((childSnapshot: { val: () => any; }) => {
                         console.log(childSnapshot)
-                        const puntuacion: Puntuacion = childSnapshot.val();
-                        puntajesArray.push(puntuacion);
+                        //const puntuacion: Puntuacion = childSnapshot.val();
+                        //puntajesArray.push(puntuacion);
                     });
                     setPuntajes(puntajesArray.reverse());
                 }
             })
-        //.catch(({error}:any) => {
-        //    console.error('Error fetching data:', error);
-        //});
     }, []);
 
     return (
@@ -38,19 +33,19 @@ export default function ScoreScreen({ navigation }: any) {
             <View style={styles.container}>
                 <Text style={styles.titleText}>Top 10 Puntajes</Text>
 
-                    <FlatList
-                        data={puntajes}
-                        keyExtractor={(item) => item.nickE}
-                        renderItem={({ item }) => (
-                            <View style={styles.itemContainer}>
-                                <Text style={styles.itemText}>{item.nickE}</Text>
-                                <Text style={styles.itemText}>{item.puntuacion}</Text>
-                            </View>
-                        )}
-                    />
+                {/*<FlatList
+                    data={puntajes}
+                    keyExtractor={(item) => item.nick}
+                    renderItem={({ item }) => (
+                        <View style={styles.itemContainer}>
+                            <Text style={styles.itemText}>{item.nick}</Text>
+                            <Text style={styles.itemText}>{item.puntuacion}</Text>
+                        </View>
+                    )}
+                />*/}
 
                 <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Bienvenido')}>
-                    <AntDesign name="logout" size={24} style={styles.icon} />
+                    <AntDesign name="back" size={24} style={styles.icon} />
                     <Text style={styles.buttonText}>Regresar</Text>
                 </TouchableOpacity>
             </View>
